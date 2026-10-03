@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#f7edd9">
+    <title>یک پیشنهاد کوچک ☕</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --ink: #392d26;
+            --muted: #75675c;
+            --paper: #fffaf0;
+            --rust: #b65e43;
+            --olive: #65765a;
+            --line: #e8d9bd
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 20% 15%, #f2dfbd 0, transparent 30%), radial-gradient(ellipse at 90% 85%, #e4e5ce 0, transparent 34%), #f7edd9;
+            color: var(--ink);
+            font-family: Vazirmatn, Tahoma, sans-serif;
+            display: grid;
+            place-items: center;
+            padding: 24px
+        }
+
+        .card {
+            width: min(100%, 590px);
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 26px;
+            padding: clamp(24px, 6vw, 48px);
+            box-shadow: 0 18px 55px #59412a19;
+            position: relative;
+            overflow: hidden
+        }
+
+        .card:before {
+            content: '✦';
+            position: absolute;
+            left: 25px;
+            top: 18px;
+            color: #d49a55;
+            font-size: 24px
+        }
+
+        .eyebrow {
+            color: var(--rust);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .02em
+        }
+
+        .doodle {
+            font-size: 48px;
+            margin: 18px 0 8px
+        }
+
+        h1 {
+            font-size: clamp(28px, 6vw, 40px);
+            line-height: 1.45;
+            margin: 0 0 12px
+        }
+
+        p {
+            line-height: 2;
+            color: var(--muted);
+            margin: 0 0 16px
+        }
+
+        .chips {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin: 23px 0 28px
+        }
+
+        .chip {
+            border: 1px dashed #d9c6a5;
+            border-radius: 999px;
+            padding: 7px 13px;
+            color: #65594b;
+            background: #fffdf8;
+            font-size: 14px
+        }
+
+        .ask {
+            font-weight: 700;
+            color: var(--ink);
+            font-size: 18px;
+            margin-bottom: 16px
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 14px;
+            padding: 13px 19px;
+            font: 600 15px inherit;
+            font-family: inherit;
+            font-size: 15px;
+            cursor: pointer;
+            transition: transform .15s, filter .15s
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(.97)
+        }
+
+        .yes {
+            background: var(--olive);
+            color: white
+        }
+
+        .no {
+            background: #f1e9dc;
+            color: #65594b
+        }
+
+        .note {
+            font-size: 12px;
+            margin-top: 24px;
+            color: #948679
+        }
+
+        .reply {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 14px;
+            background: #eef0e6;
+            color: #475340;
+            line-height: 1.9
+        }
+
+        .reply.show {
+            display: block
+        }
+
+        .footer {
+            margin-top: 28px;
+            border-top: 1px solid var(--line);
+            padding-top: 16px;
+            font-size: 13px;
+            color: #897b6c;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <div class="eyebrow">یک پیشنهاد کوچک، بی‌هیچ فشار خاصی</div>
+        <div class="doodle">☕ 📚</div>
+        <h1>یه قهوه و یه گپ خوب؟</h1>
+        <p>از چیزهایی که درباره‌ات دیدم، به نظر میاد قهوه و کتاب و کشف جاهای تازه ترکیب جذابی باشن. گفتم شاید بد نباشه
+            یک روز یکی از این‌ها رو با هم امتحان کنیم :)</p>
+        <div class="chips"><span class="chip">☕ قهوه</span><span class="chip">📖 حرفِ کتاب</span><span class="chip">🧭
+                یک جای تازه</span><span class="chip">🌿 حالِ خوب</span></div>
+        <div class="ask">پایه‌ای این هفته بریم کافه؟</div>
+        <div class="buttons"><button class="btn yes" onclick="answer(true)">آره، چرا که نه ☀️</button><button
+                class="btn no" onclick="answer(false)">این بار نه، مرسی</button></div>
+        <div id="reply" class="reply" role="status"></div>
+        <div class="note">هر جوابی بدی کاملاً اوکیه؛ فقط خواستم پیشنهاد بدم.</div>
+        <div class="footer"><span>از طرف: <b>[sed_.baset]</b></span><span>یک دعوت ساده، با احترام ✿</span></div>
+    </main>
+    <script>
+        function answer(ok) {const r = document.getElementById('reply'); r.textContent = ok ? 'چه خوب! پس تو بگو چه روزی و کدوم کافه برات بهتره ☕' : 'حتماً، ممنون که گفتی😊 🌿'; r.classList.add('show')}
+    </script>
+</body>
+
+</html>
